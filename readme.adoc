@@ -5,24 +5,59 @@ Invoke by posting the following content
 [source,JSON]
 ----
 {
-    "pWebLead": {
-        "com.home_security.web_lead.WebLead": {
-            "formName": "default",
-            "promotionCode": "WEB0001421",
-            "messageDivision": "resi",
-            "messageType": "L",
-            "emailSubject": "Home Security Review DNIS:WEB0001421",
-            "firstName": "Ben",
-            "lastName": "Xxxxxx",
-            "stateCode": "AZ",
-            "countryCode": "US",
-            "zipCode": "85716",
-            "primaryPhoneNumber": "9905556922",
-            "emailAddress": "benXxxxx@yahoo.com",
-            "sourceIP": "99.43.34.116",
-            "createDateTime": "2020-07-03T08:11:40"
+    "commands": [
+        {
+            "insert": {
+                "object": {
+                    "com.home_security.web_lead.Response": {
+                        "routeToAdtn": true,
+                        "sendToEmail": false,
+                        "sendToOneClick": false,
+                        "sendToText": false,
+                        "dnis": {
+                            "bypassEmail": false,
+                            "bypassOneclick": false,
+                            "bypassSendtext": false,
+                            "lob": "Residential",
+                            "marketChannel": "Paid Social",
+                            "marketingGeneric": "W_SocialPD"
+                        },
+                        "webSplit": {
+                            "matchedName": "W_ADTDirect",
+                            "liveRatio": "42",
+                            "splitRatio": "55"
+                        }
+                    }
+                },
+                "out-identifier": "response",
+                "return-object": false
+            }
+        },
+        {
+            "insert": {
+                "object": {
+                    "com.home_security.web_lead.WebLeadSplit": {
+                        "lob": "Residential",
+                        "name": "W SocialPD",
+                        "splitRatio": 0.55,
+                        "liveToDate": 0.553,
+                        "splitCount": 73,
+                        "localCount": 59
+                    }
+                },
+                "out-identifier": "webLeadSplit",
+                "return-object": true
+            }
+        },
+        {
+            "fire-all-rules": {
+                "out-identifier": "firedActivations"
+            }
+        },
+        {
+            "dispose": {}
         }
-    }
+    ]
 }
 ----
 
