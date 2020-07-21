@@ -5,7 +5,6 @@ import java.lang.Number;
 rule "Update Live To Date"
 	dialect "mvel"
 	enabled true
-	ruleflow-group "webleadsplit_segmentation"
 	salience -1
 	when
 		webLeadSplit : WebLeadSplit( liveToDate : liveToDate, localCount : localCount, splitCount : splitCount, eval( localCount+splitCount != 0 ))
